@@ -1,46 +1,40 @@
 # Policy_RAG_Assistant
 
-# Policy RAG Assistant
+A minimal Retrieval-Augmented Generation (RAG) system that answers questions about company policy documents using grounded retrieval and structured prompting.
 
-A minimal Retrieval-Augmented Generation system for answering questions about company policy documents.
+This project focuses on **prompt engineering, hallucination reduction, and evaluation**, rather than complex UI or heavy frameworks.
 
-## Setup
+---
 
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+## Overview
 
-2. Set your Groq API key:
-```bash
-export GROQ_API_KEY="your-key-here"
-```
+The Policy RAG Assistant allows users to upload policy documents (PDF, TXT, MD) and ask questions about them.
 
-3. Add policy documents to `data/policies/` (PDF, TXT, or MD files)
+The system:
 
-## Usage
+- Retrieves relevant document chunks using semantic search
+- Generates grounded answers using an LLM
+- Avoids hallucinations using strict prompt design
+- Provides structured evaluation metrics for responses
 
-### Streamlit UI
-```bash
-streamlit run app.py
-```
+---
 
-### CLI
-```bash
-python main.py "What is the vacation policy?"
-```
+## Architecture Overview
+User Question
+│
+▼
+Semantic Retrieval (ChromaDB)
+│
+▼
+Top-K Relevant Chunks
+│
+▼
+Prompt Builder (Initial / Improved)
+│
+▼
+Groq LLM (Llama 3.1)
+│
+▼
+Structured JSON Response + Evaluation
 
-## Architecture
 
-- **Embeddings**: sentence-transformers/all-MiniLM-L6-v2
-- **Vector Store**: ChromaDB (local)
-- **LLM**: Groq API with llama-3.1-8b-instant
-- **Chunking**: 500 words with 100-word overlap
-
-## Features
-
-- Document loading (PDF/TXT/MD)
-- Semantic search with ChromaDB
-- Prompt engineering comparison
-- JSON-structured responses with confidence scores
-- Query logging
